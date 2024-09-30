@@ -72,7 +72,7 @@ const forgotPassword = async(req, res)=>{
                 from: 'passwordreset@demo.com',
                 to: user.email,
                 subject: 'Password Reset',
-                text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n Please click on the following link, or paste this into your browser to complete the process:\n\n http://localhost:5173/resetPassword/${user.token}\n\n  If you did not request this, please ignore this email and your password will remain unchanged.\n`
+                text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n Please click on the following link, or paste this into your browser to complete the process:\n\n https://eventmanagementfrontend.netlify.app/resetPassword/${user.token}\n\n  If you did not request this, please ignore this email and your password will remain unchanged.\n`
             }
 
             transporter.sendMail(mailOptions, (err)=>{
@@ -94,8 +94,6 @@ const resetPassword = async(req, res)=>{
     try {
         console.log("Password Reset Block")
         let token = req.params.token;
-        console.log(req.params.token+"pppppppppppppppppp")
-        console.log(req.body.password+"xxxxxxxxxxxxx")
         const user = await userModel.findOne({token: token, tokenExpiry: {$gt: Date.now()}})
 
         if (!user) return res.status(400).send({message: 'Password reset token is invalid or has expired'});

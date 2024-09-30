@@ -53,7 +53,6 @@ const getApprovedEvents = async (req, res)=>{
         
         let docs = await eventModel.find({status: "approved"});
         if(docs){
-            console.log("Docs Found")
             res.status(200).send({message: "Approved Events", events: docs});
         }
         else{
@@ -193,6 +192,22 @@ const cancelEvent = async (req, res)=>{
     }
 }
 
+const upcommingEvent = async (req, res)=>{
+    try {
+        const today = new Date();
+        console.log(today);
+        let response = await eventModel.find({date: {$gte: today}});
+        if(response){
+            res.status(200).send({message: "Events Found", data: response})
+        }else{
+            res.status(400).send({message: "No Upcomming Events"})
+        }
+    } catch (error) {
+        console.log(`Error in ${req.originalURL}`, error);
+        res.status(500).send({message: error.message || 'Internal Server Error'});
+    }
+}
+
 export default{
     createEvent,
     getAllEvents,
@@ -202,5 +217,6 @@ export default{
     pendingEvents,
     approveEvent,
     rejectEvent,
-    cancelEvent
+    cancelEvent,
+    upcommingEvent
 }

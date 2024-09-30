@@ -14,5 +14,6 @@ router.put('/rejectEvent', verifyAuth, verifyAdmin, eventController.rejectEvent)
 router.put('/cancelEvent/:id', eventController.cancelEvent);
 router.get('/getApprovedEvents', verifyAuth, eventController.getApprovedEvents);
 router.get('/getEventById/:id', verifyAuth, eventController.getEventById);
+router.get('/upcommingEvent',verifyAuth, eventController.upcommingEvent);
 
 export default router;

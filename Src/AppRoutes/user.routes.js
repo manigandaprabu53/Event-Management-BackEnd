@@ -6,7 +6,7 @@ import verifyOrganizer from '../MiddleWare/verifyOrganizer.js';
 
 const router = express.Router();
 
-router.post('/createUser', verifyAuth, verifyOrganizer, userController.createUser);
+router.post('/createUser', userController.createUser);
 router.post('/loginUser', userController.loginUser);
 router.put('/forgotPassword', userController.forgotPassword);
 router.put('/resetPassword/:token', userController.resetPassword);

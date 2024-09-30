@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/purchaseTicket', ticketController.purchaseTicket);
 router.post('/payment', ticketController.payment);
-router.get('/findEmail', ticketController.findEmail);
+router.get('/findEmail/:eventID', ticketController.findEmail);
 
 export default router;

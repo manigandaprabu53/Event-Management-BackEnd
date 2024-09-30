@@ -61,16 +61,16 @@ const payment = async (req, res)=>{
 const findEmail = async(req, res)=>{
     try {
         let {eventID} = req.params;
-        const userEmails = await ticketModel.find({event: mongoose.Types.ObjectId(eventID)}).populate({
+        const userEmails = await ticketModel.find({event: eventID}).populate({
             path: 'user',
             select: 'email'
         }).select('user').exec();
-
-        const emails = usersEmails.map(ticket => ticket.user.email);
+        
+        const emails = userEmails.map(ticket => ticket.user.email);
         res.status(201).send({message: "Email ID's Found", Emails: emails})
     } catch (error) {
         console.log(`Error at ${req.originalUrl}`)
-        res.status(500).status({message: error.message || 'Internal Server Error'})
+        res.status(500).send({message: error.message || 'Internal Server Error'})
     }
 }
 
